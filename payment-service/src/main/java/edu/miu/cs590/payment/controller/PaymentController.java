@@ -3,10 +3,7 @@ package edu.miu.cs590.payment.controller;
 import edu.miu.cs590.payment.domain.OrderPayment;
 import edu.miu.cs590.payment.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/payments")

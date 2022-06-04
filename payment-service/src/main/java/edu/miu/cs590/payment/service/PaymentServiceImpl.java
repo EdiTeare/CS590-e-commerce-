@@ -11,8 +11,6 @@ import java.util.UUID;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    private String uuid = UUID.randomUUID().toString();
-
     @Autowired
     RestTemplate restTemplate;
 

@@ -14,12 +14,9 @@ public class OrderPayment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "payment_uuid", nullable = false)
-    private String uuid;
     private String paymentType;
     private String status;
     private String orderId;
+    private String accountId;
     private String transactionId;
-
 }

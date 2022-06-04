@@ -6,7 +6,7 @@ spring:
     name: PAYMENT-SERVICE
   datasource:
     password: password
-    url: jdbc:mysql://localhost:3306/user
+    url: jdbc:mysql://localhost:3306/user-service
     username: root
   jpa:
     hibernate:
