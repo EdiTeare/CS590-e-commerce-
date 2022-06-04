@@ -19,4 +19,14 @@ public class PaymentController {
     public String processBankPayment(@RequestBody OrderPayment orderPayment) {
         return paymentService.makePayment(orderPayment);
     }
+
+    @GetMapping(value = "/cc")
+    public String processCCPayment(@RequestBody OrderPayment orderPayment) {
+        return paymentService.makePayment(orderPayment);
+    }
+
+    @GetMapping(value = "/paypal")
+    public String processPayPalPayment(@RequestBody OrderPayment orderPayment) {
+        return paymentService.makePayment(orderPayment);
+    }
 }
