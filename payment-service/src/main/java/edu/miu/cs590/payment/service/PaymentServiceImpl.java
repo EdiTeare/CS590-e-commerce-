@@ -2,7 +2,6 @@ package edu.miu.cs590.payment.service;
 
 import edu.miu.cs590.payment.domain.OrderPayment;
 import edu.miu.cs590.payment.repository.PaymentRepository;
-import edu.miu.cs590.payment.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
