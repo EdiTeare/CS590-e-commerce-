@@ -29,7 +29,7 @@ public class Account {
     @OneToMany
     private List<PaymentMethod> paymentMethodList = new ArrayList<>();
 
-
+//@Enumerated
     private PaymentType paymentType;
 
     public void addPaymentMethod(PaymentMethod paymentMethod){
