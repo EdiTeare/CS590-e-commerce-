@@ -1,6 +1,7 @@
 server:
   port: 9191
 
+<<<<<<< HEAD
 spring:
   application:
     name: API-GATEWAY
@@ -37,3 +38,5 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     hostname: localhost
+=======
+>>>>>>> b9ca64b5f888dbac668e273736dd13055bec45f0
