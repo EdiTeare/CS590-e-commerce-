@@ -26,7 +26,7 @@ public class Account {
     @Embedded
     private Address shippingAddress;
 
-    @OneToMany
+    @Transient
     private List<PaymentMethod> paymentMethodList = new ArrayList<>();
 
 //@Enumerated
