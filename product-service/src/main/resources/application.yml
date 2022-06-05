@@ -1,0 +1,28 @@
+server:
+  port: 9021
+
+spring:
+  application:
+    name: PRODUCT-SERVICE
+  datasource:
+    password: password
+    url: jdbc:mysql://localhost:3306/productDB
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+    show-sql: true
+
+    eureka:
+      client:
+        serviceUrl:
+          defaultZone: http://localhost:8761/eureka
+        instance:
+        preferIpAddress: true
+    spring:
+      application:
+        name: product-service
