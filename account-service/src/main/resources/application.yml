@@ -5,9 +5,9 @@ spring:
   application:
     name: ACCOUNT-SERVICE
   datasource:
-    url: jdbc:postgresql://localhost:5432/eCommerce
-    username: postgres
     password: password
+    url: jdbc:postgresql://localhost:5432/accountdb
+    username: postgres
   jpa:
     hibernate:
       ddl-auto: create-drop
