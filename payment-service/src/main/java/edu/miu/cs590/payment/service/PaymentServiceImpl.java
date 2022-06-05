@@ -11,8 +11,6 @@ import java.util.UUID;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    @Autowired
-    RestTemplate restTemplate;
 
     @Autowired
     PaymentRepository paymentRepository;
