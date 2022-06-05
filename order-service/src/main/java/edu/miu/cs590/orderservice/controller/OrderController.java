@@ -35,8 +35,8 @@ public class OrderController {
         return new ResponseEntity<>(order1, HttpStatus.OK);
     }
 
-    @PostMapping("/addProductToOrder")
-    public ResponseEntity<?> addProductToOrder(@RequestBody Product product, @RequestBody String acctId) {
+    @PostMapping("/{acctId}/addProductToOrder")
+    public ResponseEntity<?> addProductToOrder(@RequestBody Product product, @PathVariable String acctId) {
         Order order=orderService.addProduct(product,acctId);
         if(order == null) return new ResponseEntity<>("Order create failed", HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(order, HttpStatus.OK);
