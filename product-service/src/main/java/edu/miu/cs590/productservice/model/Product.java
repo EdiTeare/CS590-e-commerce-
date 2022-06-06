@@ -2,10 +2,7 @@ package edu.miu.cs590.productservice.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -17,7 +14,17 @@ public class Product {
     private String vendor;
     private Catagory catagory;
     private Long quantity;
-    private boolean inStock;
     private Long price;
-    private Long thresholdQuantity;
+
+    @Transient
+    private Long thresholdQuantity = 10L;
+
+    @Transient
+    private boolean inStock;
+
+
+     public boolean isInStock() {
+        inStock = quantity > thresholdQuantity;
+        return inStock;
+    }
 }

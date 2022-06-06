@@ -3,6 +3,7 @@ package edu.miu.cs590.orderservice.controller;
 import edu.miu.cs590.orderservice.domain.Order;
 import edu.miu.cs590.orderservice.domain.Product;
 import edu.miu.cs590.orderservice.domain.Status;
+import edu.miu.cs590.orderservice.dto.ProductDTO;
 import edu.miu.cs590.orderservice.service.OrderService;
 import edu.miu.cs590.orderservice.service.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +37,16 @@ public class OrderController {
     }
 
     @PostMapping("/{acctId}/addProductToOrder")
-    public ResponseEntity<?> addProductToOrder(@RequestBody Product product, @PathVariable String acctId) {
+    public ResponseEntity<?> addProductToOrder(@PathVariable String acctId, @RequestBody ProductDTO product) {
         Order order=orderService.addProduct(product,acctId);
         if(order == null) return new ResponseEntity<>("Order create failed", HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
     @PostMapping("/addProductToOrder/{orderId}")
-    public ResponseEntity<?> addProductToOrderById(@RequestBody Product product, @PathVariable Long orderId) {
+    public ResponseEntity<?> addProductToOrderById(@RequestBody ProductDTO product, @PathVariable Long orderId) {
         Order order=orderService.addProductById(orderId,product);
-        if(order == null) return new ResponseEntity<>("Order create failed", HttpStatus.BAD_REQUEST);
+        if(order == null) return new ResponseEntity<>("Order Not Found", HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 

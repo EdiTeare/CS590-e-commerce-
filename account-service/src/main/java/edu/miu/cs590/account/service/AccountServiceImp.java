@@ -33,7 +33,7 @@ public class AccountServiceImp implements AccountService{
 
     @Override
     public Optional<Account> findById(Long id) {
-        return Optional.empty();
+        return accountRepository.findById(id);
     }
 
     @Override

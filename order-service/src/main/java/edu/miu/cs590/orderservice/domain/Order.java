@@ -26,7 +26,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Transient
+    @OneToMany(cascade = CascadeType.PERSIST)
     List<Product> products = new ArrayList<>();
 //    @OneToMany
 //    private List<Product> products;

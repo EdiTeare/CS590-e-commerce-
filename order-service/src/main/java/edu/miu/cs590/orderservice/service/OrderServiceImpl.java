@@ -1,6 +1,8 @@
 package edu.miu.cs590.orderservice.service;
 import edu.miu.cs590.orderservice.domain.*;
+import edu.miu.cs590.orderservice.dto.ProductDTO;
 import edu.miu.cs590.orderservice.repositories.OrderRepository;
+import edu.miu.cs590.orderservice.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private ProductRepository productRepository;
     @Autowired
     private RestTemplate restTemplate;
 
@@ -53,24 +57,33 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Order addProduct(Product product, String userId) {
-        Product product1 = restTemplate.getForObject("http://PRODUCT-SERVICE/products" + product.getProductId(), Product.class);
-        Account account = restTemplate.getForObject("http://ACCOUNT-SERVICE/accounts" + userId, Account.class);
+    public Order addProduct(ProductDTO product, String userId) {
+        ProductDTO product1 = restTemplate.getForObject("http://localhost:9021/products/" + product.getProductId(), ProductDTO.class);
+        Account account = restTemplate.getForObject("http://localhost:9001/accounts/" + userId, Account.class);
         Order order = new Order();
-        if(product1.isInStock()) {
-            order.addToProductList(product1);
-            order.setStatus(Status.DRAFT);
-            order.setUserId(account.getId().toString());
-            order.setPaymentType(account.getPaymentType());
-            return orderRepository.save(order);
-        } else {
-            System.out.println("Product out of stock");
+        if(product1 != null){
+            if(product1.isInStock()) {
+                Product product2 = new Product();
+                product2.setProductId(product.getProductId());
+                order.addToProductList(product2);
+                order.setStatus(Status.DRAFT);
+                order.setUserId(account.getId().toString());
+                order.setPaymentType(account.getPaymentType());
+                return orderRepository.save(order);
+            }
+            else {
+                System.out.println("Product out of stock");
+                return null;
+            }
+        }
+        else {
+            System.out.println("Product Not found");
             return null;
         }
     }
 
     @Override
-    public Order addProductById(Long orderId ,Product product) {
+    public Order addProductById(Long orderId , ProductDTO product) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         if(!optionalOrder.isPresent()){
             System.out.println("No Order Found by id: "+ orderId );
@@ -78,11 +91,13 @@ public class OrderServiceImpl implements OrderService {
         }
         Order order = optionalOrder.get();
         if(order.getStatus().equals(Status.DRAFT)){
-            //        Product product1 = restTemplate.getForObject("http://PRODUCT-SERVICE/products" + product.getProductId(), Product.class);
-            Product product1 = restTemplate.getForObject("http://PRODUCT-SERVICE/products" + product.getProductId(), Product.class);
+            ProductDTO product1 = restTemplate.getForObject("http://localhost:9021/products/" + product.getProductId(), ProductDTO.class);
 
             if(product1.isInStock()) {
-                order.addToProductList(product1);
+                Product product2 = new Product();
+                product2.setProductId(product.getProductId());
+                productRepository.save(product2);
+                order.addToProductList(product2);
                 return orderRepository.save(order);
             } else {
                 System.out.println("Product out of stock");
