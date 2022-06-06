@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -29,7 +28,6 @@ public class Account {
     @Transient
     private List<PaymentMethod> paymentMethodList = new ArrayList<>();
 
-//@Enumerated
     private PaymentType paymentType;
 
     public void addPaymentMethod(PaymentMethod paymentMethod){
