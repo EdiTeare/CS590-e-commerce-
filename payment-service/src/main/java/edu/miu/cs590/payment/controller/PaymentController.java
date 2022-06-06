@@ -12,17 +12,17 @@ public class PaymentController {
     @Autowired
     PaymentService paymentService;
 
-    @GetMapping(value = "/bank-account")
+    @PostMapping(value = "/BANK")
     public String processBankPayment(@RequestBody OrderPayment orderPayment) {
         return paymentService.makePayment(orderPayment);
     }
 
-    @GetMapping(value = "/cc")
+    @GetMapping(value = "/CC")
     public String processCCPayment(@RequestBody OrderPayment orderPayment) {
         return paymentService.makePayment(orderPayment);
     }
 
-    @GetMapping(value = "/paypal")
+    @GetMapping(value = "/PAYPAL")
     public String processPayPalPayment(@RequestBody OrderPayment orderPayment) {
         return paymentService.makePayment(orderPayment);
     }

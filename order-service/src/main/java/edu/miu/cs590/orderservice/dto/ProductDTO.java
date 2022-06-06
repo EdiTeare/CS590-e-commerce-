@@ -1,4 +1,4 @@
-package edu.miu.cs590.orderservice.domain;
+package edu.miu.cs590.orderservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,12 +12,8 @@ import javax.persistence.Id;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Product {
+public class ProductDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private Long productId;
     private boolean inStock;
 

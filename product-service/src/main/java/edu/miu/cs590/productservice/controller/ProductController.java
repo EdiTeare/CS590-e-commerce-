@@ -16,7 +16,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<?> getAll(){
+    public ResponseEntity<?> getAll() {
         List<Product> products = productService.findAllProducts();
         return ResponseEntity.ok(products); //loc.../products
     }
@@ -26,13 +26,23 @@ public class ProductController {
         return ResponseEntity.ok(productService.addProduct(product));
     }
 
-    @GetMapping(path="/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id){
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id) {
         Product product = productService.findProductById(id);
-        if(product==null){
-            return new ResponseEntity<String>("Empty",HttpStatus.NOT_FOUND);
+        if (product == null) {
+            return new ResponseEntity<String>("Empty", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Product>(product,HttpStatus.OK);
+        return new ResponseEntity<Product>(product, HttpStatus.OK);
+    }
+
+    @PutMapping(path = "{id}")
+    public ResponseEntity<?> updateById(@PathVariable Long id, @RequestBody Product product) {
+        return ResponseEntity.ok(productService.updateProduct(id, product));
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.removeProduct(id));
     }
 
 }

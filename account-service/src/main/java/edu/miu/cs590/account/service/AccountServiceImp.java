@@ -2,6 +2,10 @@ package edu.miu.cs590.account.service;
 
 import edu.miu.cs590.account.domain.Account;
 import edu.miu.cs590.account.domain.PaymentMethod;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2b188c9af5b3dcd968cb38e264eef2e2aeab825d
 import edu.miu.cs590.account.repository.AccountRepository;
 import edu.miu.cs590.account.repository.PaymentMethodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +21,6 @@ public class AccountServiceImp implements AccountService{
     @Autowired
     private PaymentMethodRepository paymentMethodRepository;
 
-//    @Override
-//    public Account getAccount(Long accountId) {
-//        Optional<Account>accountOptional = accountRepository.findById(accountId);
-//        return  accountOptional.orElse(null);
-//    }
 
     @Override
     public List<Account> findAll() {
@@ -30,7 +29,7 @@ public class AccountServiceImp implements AccountService{
 
     @Override
     public Optional<Account> findById(Long id) {
-        return Optional.empty();
+        return accountRepository.findById(id);
     }
 
     @Override
@@ -54,10 +53,10 @@ public class AccountServiceImp implements AccountService{
     public Account updateAccount(Long id, Account accountBody) {
         Optional<Account> accountOptional= accountRepository.findById(id);
         if(accountOptional.isPresent()){
+            accountBody.setId(id);
          return accountRepository.save(accountBody);
-
         }
-        return null;
+        return accountRepository.save(accountBody);
     }
     @Override public boolean removeAccount(Long accountId) {
         Optional<Account> accountOptional =accountRepository.findById(accountId);

@@ -28,7 +28,6 @@ public class Account {
     @Transient
     private List<PaymentMethod> paymentMethodList = new ArrayList<>();
 
-//@Enumerated
     private PaymentType paymentType;
 
     public void addPaymentMethod(PaymentMethod paymentMethod){
