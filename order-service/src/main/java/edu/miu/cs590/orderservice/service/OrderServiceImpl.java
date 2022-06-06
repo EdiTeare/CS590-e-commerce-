@@ -68,7 +68,6 @@ public class OrderServiceImpl implements OrderService {
                 order.addToProductList(product2);
                 order.setStatus(Status.DRAFT);
                 order.setUserId(account.getId().toString());
-                order.setPaymentType(account.getPaymentType());
                 return orderRepository.save(order);
             }
             else {
@@ -110,9 +109,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order save(Order order){
-        orderRepository.save(order);
-        return order;
+    public Order addPaymentType(Long orderId, PaymentType paymentType) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if(optionalOrder.isPresent()){
+            Order order = optionalOrder.get();
+            order.setPaymentType(paymentType);
+            return orderRepository.save(order);
+        }
+        System.out.println("No Order Found by id: "+ orderId );
+        return null;
     }
 
     @Override
@@ -123,14 +128,30 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void pay(Order order){
+    public Order deleteOrder(Long orderId){
+        Order order=orderRepository.findById(orderId).get();
+        orderRepository.delete(order);
+        return order;
+    }
+
+
+    @Override
+    public String pay(Long orderId){
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if(!optionalOrder.isPresent()){
+            System.out.println("No Order Found by id: "+ orderId );
+            return "Order is Not Successful";
+        }
+        Order order = optionalOrder.get();
         order.setStatus(Status.PENDING);
         PaymentRequest paymentRequest = new PaymentRequest();
         paymentRequest.setPaymentType(order.getPaymentType());
         paymentRequest.setOrderId(order.getId().toString());
         paymentRequest.setUserId(order.getUserId());
-        restTemplate.getForObject("http://PAYMENT-SERVICE/payments/" + paymentRequest.getPaymentType(), PaymentRequest.class);
+        restTemplate.postForObject("http://localhost:9031/payments/" + order.getPaymentType(),paymentRequest, String.class);
         order.setStatus(Status.SHIPPED);
+        orderRepository.save(order);
+        return "Order is Successful!!";
 //        Order order=orderRepository.findById(orderId).get();
 //        PaymentRequest request = new PaymentRequest();
 ////        request.setUserId(order.getUserId());

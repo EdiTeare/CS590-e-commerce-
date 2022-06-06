@@ -1,6 +1,7 @@
 package edu.miu.cs590.orderservice.service;
 
 import edu.miu.cs590.orderservice.domain.Order;
+import edu.miu.cs590.orderservice.domain.PaymentType;
 import edu.miu.cs590.orderservice.domain.Product;
 import edu.miu.cs590.orderservice.domain.Status;
 import edu.miu.cs590.orderservice.dto.ProductDTO;
@@ -16,10 +17,11 @@ import java.util.List;
 public interface OrderService {
     Order get(Long id);
     List<Order> getAll();
-    Order save(Order order);
     Order updateStatus(Long orderId, Status status);
-    void pay(Order order);
+    String pay(Long orderId);
     Order addProduct(ProductDTO product, String userId);
     Order addProductById(Long orderId, ProductDTO product);
+    Order addPaymentType(Long orderId, PaymentType paymentType);
+    Order deleteOrder(Long orderId);
 
 }

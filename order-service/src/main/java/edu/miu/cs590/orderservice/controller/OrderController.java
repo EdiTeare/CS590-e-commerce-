@@ -1,10 +1,9 @@
 package edu.miu.cs590.orderservice.controller;
 
 import edu.miu.cs590.orderservice.domain.Order;
-import edu.miu.cs590.orderservice.domain.Product;
+import edu.miu.cs590.orderservice.domain.PaymentType;
 import edu.miu.cs590.orderservice.domain.Status;
 import edu.miu.cs590.orderservice.dto.ProductDTO;
-import edu.miu.cs590.orderservice.service.OrderService;
 import edu.miu.cs590.orderservice.service.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,12 +29,6 @@ public class OrderController {
         return new ResponseEntity<>(orderService.get(id), HttpStatus.OK);
     }
 
-    @PostMapping()
-    public ResponseEntity<?> saveOrder(@RequestBody Order order) {
-        Order order1 = orderService.save(order);
-        return new ResponseEntity<>(order1, HttpStatus.OK);
-    }
-
     @PostMapping("/{acctId}/addProductToOrder")
     public ResponseEntity<?> addProductToOrder(@PathVariable String acctId, @RequestBody ProductDTO product) {
         Order order=orderService.addProduct(product,acctId);
@@ -50,16 +43,28 @@ public class OrderController {
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
+    @PutMapping("/addPaymentType/{orderId}")
+    public ResponseEntity<?> addPaymentTypeToOrder(@RequestParam PaymentType paymentType, @PathVariable Long orderId) {
+        Order order=orderService.addPaymentType(orderId,paymentType);
+        if(order == null) return new ResponseEntity<>("Order Not Found", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
         @PutMapping("/{id}")
     public ResponseEntity<?> updateStatus(@PathVariable Long id, @RequestBody Status status) {
         return new ResponseEntity<Object>(orderService.updateStatus(id, status), HttpStatus.OK);
     }
 
 
-    @PostMapping("/{id}/pay")
-    public ResponseEntity<?> pay(@RequestBody Order order) {
-        orderService.pay(order);
-        return new ResponseEntity<>(order, HttpStatus.OK);
+    @PostMapping("/{orderId}/pay")
+    public ResponseEntity<?> pay(@PathVariable Long orderId) {
+        String result = orderService.pay(orderId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{orderid}")
+    public ResponseEntity<?> deleteOrder(@PathVariable Long orderid){
+        return new ResponseEntity<Object>(orderService.deleteOrder(orderid), HttpStatus.OK);
     }
 
 }
