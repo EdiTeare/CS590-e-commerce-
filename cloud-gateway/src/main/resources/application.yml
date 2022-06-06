@@ -6,11 +6,6 @@ spring:
     name: API-GATEWAY
   cloud:
     gateway:
-      default-filters:
-        - name: AccountCircuitBreaker
-          args:
-            name: ACCOUNT-SERVICE
-            fallbackUri: forward:/fallback
       routes:
         - id: ACCOUNT-SERVICE
           uri: lb://ACCOUNT-SERVICE
@@ -28,6 +23,11 @@ spring:
           uri: lb://PRODUCT-SERVICE
           predicates:
             - Path=/products/**
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/auth/realms/eCommerce
 
 eureka:
   client:

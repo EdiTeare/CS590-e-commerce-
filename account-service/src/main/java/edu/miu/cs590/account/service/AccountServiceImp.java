@@ -2,10 +2,7 @@ package edu.miu.cs590.account.service;
 
 import edu.miu.cs590.account.domain.Account;
 import edu.miu.cs590.account.domain.PaymentMethod;
-import edu.miu.cs590.account.domain.PaymentType;
-import edu.miu.cs590.account.dto.AccountDTO;
 import edu.miu.cs590.account.repository.AccountRepository;
-
 import edu.miu.cs590.account.repository.PaymentMethodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
