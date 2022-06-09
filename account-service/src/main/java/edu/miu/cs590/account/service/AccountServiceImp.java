@@ -2,10 +2,6 @@ package edu.miu.cs590.account.service;
 
 import edu.miu.cs590.account.domain.Account;
 import edu.miu.cs590.account.domain.PaymentMethod;
-<<<<<<< HEAD
-=======
-
->>>>>>> 2b188c9af5b3dcd968cb38e264eef2e2aeab825d
 import edu.miu.cs590.account.repository.AccountRepository;
 import edu.miu.cs590.account.repository.PaymentMethodRepository;
 import org.springframework.beans.factory.annotation.Autowired;

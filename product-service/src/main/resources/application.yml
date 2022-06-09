@@ -8,10 +8,11 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/auth/realms/eCommerce
+#          issuer-uri: https://keycloak.default.svc.cluster.local
+          issuer-uri: http://keycloak.default.svc.cluster.local/realms/eCommerce
   datasource:
     password: password
-    url: jdbc:postgresql://localhost:5432/productDB
+    url: jdbc:postgresql://product-db-service:5432/productdb
     username: postgres
   jpa:
     hibernate:
@@ -22,9 +23,9 @@ spring:
         format_sql: true
     show-sql: true
 
-    eureka:
-      client:
-        serviceUrl:
-          defaultZone: http://localhost:8761/eureka
-        instance:
-        preferIpAddress: true
+#    eureka:
+#      client:
+#        serviceUrl:
+#          defaultZone: http://localhost:8761/eureka
+#        instance:
+#        preferIpAddress: true
